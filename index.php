@@ -29,15 +29,44 @@ a {
     color: #9161f9;
 }
 
+.introduction {
+    min-height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(to top right,#6449de 0,#bd5afd);
+    background-size: 200% 200%;
+    -webkit-animation: Scroll 7s ease infinite;
+    -moz-animation: Scroll 7s ease infinite;
+    animation: Scroll 7s ease infinite;
+}
+
+@-webkit-keyframes Scroll {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes Scroll {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes Scroll { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
 .introduction h1 {
     font-size: 4rem;
-    padding-top: 3rem;
     padding-bottom: 3rem;
+    color: #fff;
 }
 .introduction p {
     font-size: 1.4rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    color: #fff;
 }
 
 .candidate {
@@ -45,6 +74,17 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.candidate--logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+}
+
+.candidate--details {
+    box-shadow: 0 0 90px 0 rgba(3,34,71,.08);
+    padding: 60px 60px;
 }
 
 .candidate p {
@@ -58,9 +98,7 @@ a {
 <section class="section introduction">
 <div class="container is-fullhd has-text-centered">
     <h1 class="title">Vote on a new logo for Whitecoin.</h1>
-    <p>We are working hard on a new identity for Whitecoin. With that comes a new logo. The design team has made several excellent logo's and you get to decide what the new logo for XWC will be.</p>
-
-    <p>You can scroll down this page to see the candidates. Next to the each logo is an uniqe voting wallet. To vote you simply send a minimum of XWC to the wallet to cast a vote. 1 vote equals 1 XWC. At the end of the voting the candidate with the most votes will be the new logo.</p>
+    <p>We are working hard on a new identity for Whitecoin. With that comes a new logo. Help us pick a new logo by voting for your favourite. Next to the each logo is an uniqe voting wallet. To vote you simply donate to the wallet to cast a vote. 1 XWC equals 1 vote. At the end of the voting the candidate with the most votes will be the new logo.</p>
 </div><!-- /container -->
 </section>
 
@@ -68,7 +106,7 @@ a {
 $arrCandidates = [];
 $arrCandidates[] = [
     'title' => 'Candidate 1',
-    'description' => 'Sleek and modern logo that resembles a \'C\'. ',
+    'description' => 'Sleek and modern logo that resembles a \'C\' and a coin. ',
     'filename' => 'xwc-logo-candidate-1.png',
     'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
 ];
@@ -104,7 +142,7 @@ $arrCandidates[] = [
 ];
 $arrCandidates[] = [
     'title' => 'Candidate 7',
-    'description' => 'Variant on Candidate 3 but not encircled so the shape further resembles a coin.',
+    'description' => 'Variant on Candidate 3 but encircled so the shape further resembles a coin.',
     'filename' => 'xwc-logo-candidate-7.png',
     'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
 ];
@@ -113,10 +151,10 @@ foreach ($arrCandidates as $candidate) {
     <section class="section candidate">
     <div class="container is-fullhd">
         <div class="columns">
-            <div class="column is-7">
-                <img src="/logos/<?=$candidate['filename'];?>">
+            <div class="column is-6 candidate--logo">
+                <a href="/logos/<?=$candidate['filename'];?>" title="Click to preview in full screen"><img src="/logos/<?=$candidate['filename'];?>" data-lightbox="/logos/<?=$candidate['filename'];?>" alt="XWC Logo Candidate: <?=$candidate['title'];?>"></a>
             </div><!-- /column -->
-            <div class="column is-offset-1 is-3">
+            <div class="column is-offset-2 is-4 candidate--details">
                 <h2 class="title"><?=$candidate['title'];?></h2>
                 <p><strong>Vote for this logo by donating to: </strong><a href="http://explorer2.whitecoin.info/address/<?=$candidate['wallet'];?>"><?=$candidate['wallet'];?></a></p>
 
@@ -129,6 +167,72 @@ foreach ($arrCandidates as $candidate) {
 }
 ?>
 
+<script type="text/javascript">
+function lightBox(imgsrc) {
 
+    // Create lightbox
+    if (imgsrc) {
+        var container = document.createElement('div');
+        container.setAttribute('id', 'lightbox-container');
+        container.style.width = '100%';
+        container.style.height = '100%';
+        container.style.position = 'fixed';
+        container.style.left = '0';
+        container.style.top = '0';
+        container.style.background = '#fff';
+        document.body.appendChild(container);
+
+        var image = document.createElement('img');
+        image.src = imgsrc;
+        image.style.position = 'absolute';
+        image.style.top = '50%';
+        image.style.left = '50%';
+        image.style.transform = 'translate(-50%, -50%)';
+        document.getElementById('lightbox-container').appendChild(image);
+    }
+
+    // Listen to close
+    // If user clicks outside container
+    window.onclick = function(event) {
+
+        if (event.target == document.getElementById('lightbox-container')) {
+            document.getElementById('lightbox-container').remove();
+        }
+
+    }
+    // Touch handeler
+    document.addEventListener('touchend', function(event) {
+
+        if (event.target == document.getElementById('lightbox-container')) {
+            document.getElementById('lightbox-container').remove();
+            this.removeEventListener('touchend', arguments.callee, false);
+        }
+    });
+    // Scroll
+    document.addEventListener('scroll', function(event) {
+
+        document.getElementById('lightbox-container').remove();
+        this.removeEventListener('scroll', arguments.callee, false);
+
+    });
+    // Esc
+    document.onkeydown = function(event) {
+
+        var key = event || window.eventl
+        if (key.keyCode == 27) {
+            document.getElementById('lightbox-container').remove();
+        }
+
+    }
+}
+
+var items = document.querySelectorAll('a > img');
+for (i = 0; i < items.length; i++) {
+    items[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        lightBox(this.dataset.lightbox);
+    });
+}
+</script>
 </body>
 </html>
