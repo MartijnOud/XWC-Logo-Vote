@@ -121,6 +121,11 @@ a {
   animation-name: fadeIn;
 }
 
+.js-lightbox #Layer_1 {
+    cursor: pointer!important;
+}
+
+
 #lightbox-container {
     animation: fadeIn 0.4s ease;
 }
@@ -141,63 +146,63 @@ $arrCandidates[] = [
     'pos' => 1,
     'title' => 'Candidate 1',
     'description' => 'Sleek and modern logo that resembles a \'C\' and a coin. ',
-    'filename' => 'xwc-logo-candidate-1.png',
+    'filename' => 'Whitecoin - Logo 1.svg',
     'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
 ];
 $arrCandidates[] = [
     'pos' => 2,
     'title' => 'Candidate 2',
-    'description' => 'The two checkmarks that spell out a W give this logo a very positive and graph like effect.',
-    'filename' => 'xwc-logo-candidate-2.png',
+    'description' => 'The two checkmarks that spell out a W give this logo a very positive and graph like effect. An uncomplicated yet recognizable shape which can work in any situation.',
+    'filename' => 'Whitecoin - Logo 2.svg',
     'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
 ];
 $arrCandidates[] = [
     'pos' => 3,
     'title' => 'Candidate 3',
-    'description' => 'The double stripes give this logo a real currency vibe. An uncomplicated yet recognizable shape with a nod back to other payment methods.',
-    'filename' => 'xwc-logo-candidate-3.png',
+    'description' => 'The double strikethrough is a nod back to other payment method and give this logo a strong currency vibe.',
+    'filename' => 'Whitecoin - Logo 3.svg',
     'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
 ];
 $arrCandidates[] = [
     'pos' => 4,
     'title' => 'Candidate 4',
-    'description' => 'The W in this logo is a positive trend line / graph to resemble the growth XWC has had so far.',
-    'filename' => 'xwc-logo-candidate-4.png',
+    'description' => 'Alternative to Candidate 3 but encircled so the shape further resembles a coin.',
+    'filename' => 'Whitecoin - Logo 4.svg',
     'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
 ];
 $arrCandidates[] = [
     'pos' => 5,
     'title' => 'Candidate 5',
-    'description' => 'Multiplying and interconnected nodes that spell out a W. This resembles the nodes and connections of a blockchain.',
-    'filename' => 'xwc-logo-candidate-5.png',
+    'description' => 'Alternative to Candidate 3 but with an inverted circle.',
+    'filename' => 'Whitecoin - Logo 5.svg',
     'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
 ];
 $arrCandidates[] = [
     'pos' => 6,
     'title' => 'Candidate 6',
     'description' => 'A stylized W curled like DNA strands.',
-    'filename' => 'xwc-logo-candidate-6.png',
+    'filename' => 'Whitecoin - Logo 6.svg',
     'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
 ];
 $arrCandidates[] = [
     'pos' => 7,
     'title' => 'Candidate 7',
-    'description' => 'Variant on Candidate 3 but encircled so the shape further resembles a coin.',
-    'filename' => 'xwc-logo-candidate-7.png',
+    'description' => 'Multiplying and interconnected nodes that spell out a W. This resembles the nodes and connections of a blockchain. This versatile concept could be extended to other design areas.',
+    'filename' => 'Whitecoin - Logo 7.svg',
     'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
 ];
 $arrCandidates[] = [
     'pos' => 8,
     'title' => 'Candidate 8',
-    'description' => 'Alternative to Candidate 7.',
-    'filename' => 'xwc-logo-candidate-8.png',
+    'description' => 'Variant on Candidate 7; the nodes and connections spell out a more clear W.',
+    'filename' => 'Whitecoin - Logo 8.svg',
     'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
 ];
 $arrCandidates[] = [
     'pos' => 9,
     'title' => 'Candidate 9',
-    'description' => 'Variant on Candidate 5 but simplified.',
-    'filename' => 'xwc-logo-candidate-9.png',
+    'description' => 'The W in this logo is a positive trend line / graph to resemble the growth XWC has had so far.',
+    'filename' => 'Whitecoin - Logo 9.svg',
     'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
 ];
 foreach ($arrCandidates as $candidate) {
@@ -207,7 +212,7 @@ foreach ($arrCandidates as $candidate) {
     <div class="container is-fullhd">
         <div class="columns">
             <div class="column is-6 candidate--logo">
-                <a href="/logos/<?=$candidate['filename'];?>" title="Click to preview in full screen"><img src="/logos/<?=$candidate['filename'];?>" data-lightbox="/logos/<?=$candidate['filename'];?>" alt="XWC Logo Candidate: <?=$candidate['title'];?>"></a>
+                <object class="js-lightbox" type="image/svg+xml" data="/logos/<?=$candidate['filename'];?>">Your browser does not support SVGs</object>
             </div><!-- /column -->
             <div class="column is-offset-2 is-4 candidate--details">
                 <h2 class="title"><a class="is-hidden-mobile candidate--details-pos" href="/#candidate-<?=$candidate['pos'];?>">#</a> <?=$candidate['title'];?></h2>
@@ -238,13 +243,14 @@ function lightBox(imgsrc) {
         container.classList.add('fadeIn');
         document.body.appendChild(container);
 
-        var image = document.createElement('img');
-        image.src = imgsrc;
-        image.style.position = 'absolute';
-        image.style.top = '50%';
-        image.style.left = '50%';
-        image.style.transform = 'translate(-50%, -50%)';
-        document.getElementById('lightbox-container').appendChild(image);
+        var object = document.createElement('object');
+        object.type = 'image/svg+xml';
+        object.data = imgsrc;
+        object.style.position = 'absolute';
+        object.style.top = '50%';
+        object.style.left = '50%';
+        object.style.transform = 'translate(-50%, -50%)';
+        document.getElementById('lightbox-container').appendChild(object);
     }
 
     // Listen to close
@@ -282,12 +288,18 @@ function lightBox(imgsrc) {
     }
 }
 
-var items = document.querySelectorAll('a > img');
-for (i = 0; i < items.length; i++) {
-    items[i].addEventListener('click', function(e) {
-        e.preventDefault();
-        lightBox(this.dataset.lightbox);
+
+var items = document.querySelectorAll('.js-lightbox');
+for (var i = 0; i < items.length; i++) {
+
+    items[i].addEventListener('load', function() {
+        var doc = this.contentDocument;
+        var data = this.data;
+        doc.addEventListener('click', function() {
+            lightBox(data);
+        });
     });
+
 }
 </script>
 </body>
