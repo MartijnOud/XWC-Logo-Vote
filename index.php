@@ -3,11 +3,22 @@
  * Whitecoin Logo Voting website
  *
  */
+include 'settings.php';
+include 'classes/Minify.php';
+
+ob_start("MinifyHTML");
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<title>Vote for a new Whitecoin logo! - Whitecoin</title>
 <meta charset="utf-8">
+<meta name="description" content="Help pick a new logo for Whitecoin! View the candidates and vote on your favorite.">
+
+<meta property="og:title" content="Vote for a new Whitecoin logo" />
+<meta property="og:description" content="Help pick a new logo for Whitecoin! View the candidates and vote on your favorite." />
+<meta property="og:image" content="/logos/whitecoin-vote-new-logo.png" />
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
 <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -287,7 +298,6 @@ function lightBox(imgsrc) {
 
     }
 }
-
 
 var items = document.querySelectorAll('.js-lightbox');
 for (var i = 0; i < items.length; i++) {
