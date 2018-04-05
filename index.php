@@ -252,7 +252,7 @@ foreach ($arrCandidates as $candidate) {
 }
 ?>
 
-<script type="text/javascript">
+<script>
 function lightBox(imgsrc) {
 
     // Create lightbox
