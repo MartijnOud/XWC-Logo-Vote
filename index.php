@@ -142,6 +142,20 @@ a {
 }
 </style>
 </head>
+<?php
+if (!empty($AnalyticsUA)) {
+?>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $AnalyticsUA;?>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '<?php echo $AnalyticsUA;?>');
+    </script>
+<?php
+}
+?>
 <body>
 
 <section class="section introduction">
