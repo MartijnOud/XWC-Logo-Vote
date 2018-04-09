@@ -237,7 +237,7 @@ foreach ($arrCandidates as $candidate) {
     <div class="container is-fullhd">
         <div class="columns">
             <div class="column is-6 candidate--logo">
-                <object class="js-lightbox" type="image/svg+xml" data="/logos/<?=$candidate['filename'];?>">Your browser does not support SVGs</object>
+                <a href="/logos/<?=$candidate['filename'];?>" class="js-lightbox"><img src="/logos/<?=$candidate['filename'];?>" data-src="/logos/<?=$candidate['filename'];?>" alt="<?= $candidate['title']; ?>"></a>
             </div><!-- /column -->
             <div class="column is-offset-2 is-4 candidate--details">
                 <h2 class="title"><a class="is-hidden-mobile candidate--details-pos" href="/#candidate-<?=$candidate['pos'];?>">#</a> <?=$candidate['title'];?></h2>
@@ -255,6 +255,8 @@ foreach ($arrCandidates as $candidate) {
 <script>
 function lightBox(imgsrc) {
 
+    console.log(imgsrc);
+
     // Create lightbox
     if (imgsrc) {
         var container = document.createElement('div');
@@ -268,19 +270,31 @@ function lightBox(imgsrc) {
         container.classList.add('fadeIn');
         document.body.appendChild(container);
 
-        var object = document.createElement('object');
-        object.type = 'image/svg+xml';
-        object.data = imgsrc;
-        object.style.position = 'absolute';
-        object.style.top = '50%';
-        object.style.left = '50%';
-        object.style.transform = 'translate(-50%, -50%)';
-        document.getElementById('lightbox-container').appendChild(object);
+        var image = document.createElement('img');
+        image.src = imgsrc;
+        image.style.position = 'absolute';
+        image.style.top = '50%';
+        image.style.left = '50%';
+        image.style.transform = 'translate(-50%, -50%)';
+        container.appendChild(image);
+
+        var close = document.createElement('img');
+        close.setAttribute('id', 'lightbox-close');
+        close.src = 'https://www.materialui.co/materialIcons/navigation/close_black_2048x2048.png';
+        close.style.position = 'fixed';
+        close.style.top = '0';
+        close.style.right = '0';
+        close.style.height = '2rem';
+        container.appendChild(close);
     }
 
     // Listen to close
     // If user clicks outside container
     window.onclick = function(event) {
+
+        if (event.target == document.getElementById('lightbox-closener')) {
+            document.getElementById('lightbox-container').remove();
+        }
 
         if (event.target == document.getElementById('lightbox-container')) {
             document.getElementById('lightbox-container').remove();
@@ -290,9 +304,13 @@ function lightBox(imgsrc) {
     // Touch handeler
     document.addEventListener('touchend', function(event) {
 
-        if (event.target == document.getElementById('lightbox-container')) {
+        if (event.target == document.getElementById('lightbox-close')) {
             document.getElementById('lightbox-container').remove();
             this.removeEventListener('touchend', arguments.callee, false);
+        }
+
+        if (event.target == document.getElementById('lightbox-container')) {
+            document.getElementById('lightbox-container').remove();
         }
     });
     // Scroll
@@ -316,12 +334,11 @@ function lightBox(imgsrc) {
 var items = document.querySelectorAll('.js-lightbox');
 for (var i = 0; i < items.length; i++) {
 
-    items[i].addEventListener('load', function() {
-        var doc = this.contentDocument;
-        var data = this.data;
-        doc.addEventListener('click', function() {
-            lightBox(data);
-        });
+
+    items[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        var imgsrc = this.getElementsByTagName('img')[0].getAttribute('src');
+        lightBox(imgsrc);
     });
 
 }
