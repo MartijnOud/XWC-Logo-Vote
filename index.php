@@ -17,7 +17,7 @@ ob_start("MinifyHTML");
 
 <meta property="og:title" content="Vote for a new Whitecoin logo" />
 <meta property="og:description" content="Help pick a new logo for Whitecoin! View the candidates and vote on your favorite." />
-<meta property="og:image" content="/logos/whitecoin-vote-new-logo.png" />
+<meta property="og:image" content="logos/whitecoin-vote-new-logo.png" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
@@ -241,7 +241,7 @@ foreach ($arrCandidates as $candidate) {
     <div class="container is-fullhd">
         <div class="columns">
             <div class="column is-6 candidate--logo">
-                <a href="/logos/<?=$candidate['filename'];?>" class="js-lightbox"><img src="/logos/<?=$candidate['filename'];?>" data-src="/logos/<?=$candidate['filename'];?>" alt="<?= $candidate['title']; ?>"></a>
+                <a href="logos/<?=$candidate['filename'];?>" class="js-lightbox"><img src="logos/<?=$candidate['filename'];?>" data-src="logos/<?=$candidate['filename'];?>" alt="<?= $candidate['title']; ?>"></a>
             </div><!-- /column -->
             <div class="column is-offset-2 is-4 candidate--details">
                 <h2 class="title"><a class="is-hidden-mobile candidate--details-pos" href="/#candidate-<?=$candidate['pos'];?>">#</a> <?=$candidate['title'];?></h2>
@@ -290,7 +290,7 @@ function lightBox(imgsrc) {
         
         var close = document.createElement('img');
         close.setAttribute('class', 'lightbox-close');
-        close.src = '/logos/icon-close.svg';
+        close.src = 'logos/icon-close.svg';
         close.style.height = '2rem';
         closeContainer.appendChild(close);
     }

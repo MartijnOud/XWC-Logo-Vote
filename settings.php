@@ -5,4 +5,4 @@
 
 // Google Analytics code
 // e.g. UA-101441242-2
-$AnalyticsUA = '';
+$AnalyticsUA = 'UA-101441242-3';
