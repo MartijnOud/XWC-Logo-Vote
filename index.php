@@ -47,9 +47,9 @@ a {
     justify-content: center;
     background: linear-gradient(to top right,#6449de 0,#bd5afd);
     background-size: 200% 200%;
-    -webkit-animation: Scroll 7s ease infinite;
-    -moz-animation: Scroll 7s ease infinite;
-    animation: Scroll 7s ease infinite;
+    -webkit-animation: Scroll 4s ease infinite;
+    -moz-animation: Scroll 4s ease infinite;
+    animation: Scroll 4s ease infinite;
 }
 
 @-webkit-keyframes Scroll {
@@ -69,12 +69,12 @@ a {
 }
 
 .introduction h1 {
-    font-size: 4rem;
+    font-size: 3rem;
     padding-bottom: 3rem;
     color: #fff;
 }
 .introduction p {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
     color: #fff;
@@ -99,6 +99,10 @@ a {
 .candidate--logo img {
     padding-top: 5rem;
     padding-bottom: 5rem;
+}
+
+.candidate--logo img:hover {
+    cursor: zoom-in;
 }
 
 .candidate--details {
@@ -255,8 +259,6 @@ foreach ($arrCandidates as $candidate) {
 <script>
 function lightBox(imgsrc) {
 
-    console.log(imgsrc);
-
     // Create lightbox
     if (imgsrc) {
         var container = document.createElement('div');
@@ -278,21 +280,26 @@ function lightBox(imgsrc) {
         image.style.transform = 'translate(-50%, -50%)';
         container.appendChild(image);
 
+        var closeContainer = document.createElement('a');
+        closeContainer.setAttribute('class', 'lightbox-close');
+        closeContainer.style.position = 'fixed';
+        closeContainer.style.top = '0';
+        closeContainer.style.right = '0';
+        closeContainer.style.padding = '15px 25px';
+        container.appendChild(closeContainer);
+        
         var close = document.createElement('img');
-        close.setAttribute('id', 'lightbox-close');
-        close.src = 'https://www.materialui.co/materialIcons/navigation/close_black_2048x2048.png';
-        close.style.position = 'fixed';
-        close.style.top = '0';
-        close.style.right = '0';
+        close.setAttribute('class', 'lightbox-close');
+        close.src = '/logos/icon-close.svg';
         close.style.height = '2rem';
-        container.appendChild(close);
+        closeContainer.appendChild(close);
     }
 
     // Listen to close
     // If user clicks outside container
     window.onclick = function(event) {
 
-        if (event.target == document.getElementById('lightbox-closener')) {
+        if (event.target.classList.contains('lightbox-close')) {
             document.getElementById('lightbox-container').remove();
         }
 
@@ -304,13 +311,14 @@ function lightBox(imgsrc) {
     // Touch handeler
     document.addEventListener('touchend', function(event) {
 
-        if (event.target == document.getElementById('lightbox-close')) {
+        if (event.target.classList.contains('lightbox-close')) {
             document.getElementById('lightbox-container').remove();
             this.removeEventListener('touchend', arguments.callee, false);
         }
 
         if (event.target == document.getElementById('lightbox-container')) {
             document.getElementById('lightbox-container').remove();
+            this.removeEventListener('touchend', arguments.callee, false);
         }
     });
     // Scroll
@@ -333,7 +341,6 @@ function lightBox(imgsrc) {
 
 var items = document.querySelectorAll('.js-lightbox');
 for (var i = 0; i < items.length; i++) {
-
 
     items[i].addEventListener('click', function(e) {
         e.preventDefault();
