@@ -210,7 +210,7 @@ foreach ($arrCandidates as $candidate) {
 
             ?>
                 <div class="column">
-                    <a class="bottom--logo" href="logos/<?=$candidate['filename'];?>" title="<?=$candidate['title'];?>" class="js-lightbox"><img src="logos/<?=$candidate['filename'];?>" data-src="logos/<?=$candidate['filename'];?>" alt="<?= $candidate['title']; ?>"></a>
+                    <a href="logos/<?=$candidate['filename'];?>" title="<?=$candidate['title'];?>" class="bottom--logo js-lightbox"><img src="logos/<?=$candidate['filename'];?>" data-src="logos/<?=$candidate['filename'];?>" alt="<?= $candidate['title']; ?>"></a>
                 </div>
             <?php
             $i++;
