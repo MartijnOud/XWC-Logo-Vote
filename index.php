@@ -122,6 +122,10 @@ a {
     text-overflow: ellipsis;
 }
 
+.bottom--logo:hover {
+    opacity: 0.8;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -170,78 +174,13 @@ if (!empty($AnalyticsUA)) {
 </section>
 
 <?php
-$arrCandidates = [];
-$arrCandidates[] = [
-    'pos' => 1,
-    'title' => 'Candidate 1',
-    'description' => 'Sleek and modern logo that resembles a \'C\' and a coin. ',
-    'filename' => 'Whitecoin - Logo 1.svg',
-    'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
-];
-$arrCandidates[] = [
-    'pos' => 2,
-    'title' => 'Candidate 2',
-    'description' => 'The two checkmarks that spell out a W give this logo a very positive and graph like effect. An uncomplicated yet recognizable shape which can work in any situation.',
-    'filename' => 'Whitecoin - Logo 2.svg',
-    'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
-];
-$arrCandidates[] = [
-    'pos' => 3,
-    'title' => 'Candidate 3',
-    'description' => 'The double strikethrough is a nod back to other payment method and give this logo a strong currency vibe.',
-    'filename' => 'Whitecoin - Logo 3.svg',
-    'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
-];
-$arrCandidates[] = [
-    'pos' => 4,
-    'title' => 'Candidate 4',
-    'description' => 'Alternative to Candidate 3 but encircled so the shape further resembles a coin.',
-    'filename' => 'Whitecoin - Logo 4.svg',
-    'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
-];
-$arrCandidates[] = [
-    'pos' => 5,
-    'title' => 'Candidate 5',
-    'description' => 'Alternative to Candidate 3 but with an inverted circle.',
-    'filename' => 'Whitecoin - Logo 5.svg',
-    'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
-];
-$arrCandidates[] = [
-    'pos' => 6,
-    'title' => 'Candidate 6',
-    'description' => 'A stylized W curled like DNA strands.',
-    'filename' => 'Whitecoin - Logo 6.svg',
-    'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
-];
-$arrCandidates[] = [
-    'pos' => 7,
-    'title' => 'Candidate 7',
-    'description' => 'Multiplying and interconnected nodes that spell out a W. This resembles the nodes and connections of a blockchain. This versatile concept could be extended to other design areas.',
-    'filename' => 'Whitecoin - Logo 7.svg',
-    'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
-];
-$arrCandidates[] = [
-    'pos' => 8,
-    'title' => 'Candidate 8',
-    'description' => 'Variant on Candidate 7; the nodes and connections spell out a more clear W.',
-    'filename' => 'Whitecoin - Logo 8.svg',
-    'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
-];
-$arrCandidates[] = [
-    'pos' => 9,
-    'title' => 'Candidate 9',
-    'description' => 'The W in this logo is a positive trend line / graph to resemble the growth XWC has had so far.',
-    'filename' => 'Whitecoin - Logo 9.svg',
-    'wallet' => 'QPVcNhtNHowe5zdbKMYMBM25RHyAcNUDV',
-];
 foreach ($arrCandidates as $candidate) {
-
 ?>
     <section class="section candidate" id="candidate-<?=$candidate['pos'];?>">
     <div class="container is-fullhd">
         <div class="columns">
             <div class="column is-6 candidate--logo">
-                <a href="logos/<?=$candidate['filename'];?>" class="js-lightbox"><img src="logos/<?=$candidate['filename'];?>" data-src="logos/<?=$candidate['filename'];?>" alt="<?= $candidate['title']; ?>"></a>
+                <a href="logos/<?=$candidate['filename'];?>" title="<?=$candidate['title'];?>" class="js-lightbox"><img src="logos/<?=$candidate['filename'];?>" data-src="logos/<?=$candidate['filename'];?>" alt="<?= $candidate['title']; ?>"></a>
             </div><!-- /column -->
             <div class="column is-offset-2 is-4 candidate--details">
                 <h2 class="title"><a class="is-hidden-mobile candidate--details-pos" href="/#candidate-<?=$candidate['pos'];?>">#</a> <?=$candidate['title'];?></h2>
@@ -255,6 +194,32 @@ foreach ($arrCandidates as $candidate) {
 <?php
 }
 ?>
+
+<section class="bottom section is-hidden-tablet-only is-hidden-mobile">
+    <div class="container">
+        <div class="columns">
+            <?php
+            // Once More Mate
+            $i = 0;
+            foreach ($arrCandidates as $candidate) {
+
+            // if ($i % 3 == 0) {
+            //     echo '</div>';
+            //     echo '<div class="columns">';
+            // }
+
+            ?>
+                <div class="column">
+                    <a class="bottom--logo" href="logos/<?=$candidate['filename'];?>" title="<?=$candidate['title'];?>" class="js-lightbox"><img src="logos/<?=$candidate['filename'];?>" data-src="logos/<?=$candidate['filename'];?>" alt="<?= $candidate['title']; ?>"></a>
+                </div>
+            <?php
+            $i++;
+            }
+            ?>
+        </div>
+    </div><!-- /container -->
+</section>
+
 
 <script>
 function lightBox(imgsrc) {
@@ -287,7 +252,7 @@ function lightBox(imgsrc) {
         closeContainer.style.right = '0';
         closeContainer.style.padding = '15px 25px';
         container.appendChild(closeContainer);
-        
+
         var close = document.createElement('img');
         close.setAttribute('class', 'lightbox-close');
         close.src = 'logos/icon-close.svg';
